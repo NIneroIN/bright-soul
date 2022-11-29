@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - Ground
+  - Light
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -11,6 +15,9 @@ TagManager:
   - 
   - Water
   - UI
+  - Ground
+  - Step
+  - Player
   - 
   - 
   - 
@@ -18,10 +25,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Box
   - 
   - 
   - 

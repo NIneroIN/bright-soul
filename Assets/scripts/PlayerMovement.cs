@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D _rb;
+    Animator anim;
+
 
     float horizontal;
     float vertical;
@@ -12,11 +14,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Движение")]
     [Range(0f, 10f)]
     [SerializeField] float boost;
-    [SerializeField] float speedDefault = 8;
+    [SerializeField] float speedDefault = 100;
     [SerializeField] float speedWithItem = 2;
     float speedPlayer;
     bool right = true;
     [SerializeField] bool isStay = false;
+
+    public GameObject nextPos;
 
     [Header("Руки")]
     public Collider2D Obj;
@@ -28,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     {
         speedPlayer = speedDefault;
         _rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -50,20 +55,17 @@ public class PlayerMovement : MonoBehaviour
     void MovePlayer()
     {
         isStay = horizontal == 0 ? true : false;
+        if (BlockMoveXYforLedge)
+        {
+            isStay = true;
+        }
 
         if (!isStay)
         {
-            transform.Translate(horizontal * speedPlayer/10 * boost * Time.fixedDeltaTime, 0, 0);
-            if (boost < 10f)
-            {
-                boost += Time.fixedDeltaTime * speedPlayer;
-            }
+            transform.Translate(horizontal * speedPlayer/10 * Time.fixedDeltaTime, 0, 0);
         }
-        else
-        {
-            boost = 0;
-        }
-        if (!ItemInHand)
+
+        if (!ItemInHand && !isStay)
         {
             if (horizontal > 0 && !right || horizontal < 0 && right)
             {
@@ -116,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
         speedPlayer = speedDefault;
     }
 
-    public float jumpForce = 7f;
+    public float jumpForce = 210f;
 
     public bool onGround;
     public Transform GroundCheck;
@@ -129,9 +131,9 @@ public class PlayerMovement : MonoBehaviour
             Physics2D.IgnoreLayerCollision(7, 8, true);
             Invoke("IgnorelayerOff", 2f);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && onGround)
+        if (Input.GetKey(KeyCode.Space) && onGround)
         {
-            _rb.velocity = new Vector2(_rb.velocity.x, jumpForce);
+            _rb.AddForce(Vector2.up * jumpForce);
         }
     }
 
@@ -149,15 +151,14 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask Wall;
     public Transform WallCheckUp;
     public bool OnWallUp;
-    public float WallCheckRayDistance = 1f;
+    public float WallCheckRayDistance = 25f;
     public bool OnLedge;
-    public float LedgeRayCorrectY = 0.5f;
+    public float LedgeRayCorrectY = 100f;
+    public bool BlockMoveXYforLedge = false;
 
     void CheckWall()
     {
-        OnWallUp = Physics2D.Raycast(WallCheckUp.position, new Vector2(transform.localScale.x, 0), WallCheckRayDistance, Wall);
-
-        
+        OnWallUp = Physics2D.Raycast(WallCheckUp.position, new Vector2(transform.localScale.x * 10, 0), WallCheckRayDistance, Wall);
     }
 
     void CheckLedge()
@@ -167,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
             OnLedge = !Physics2D.Raycast
                 (
                     new Vector2(WallCheckUp.position.x, WallCheckUp.position.y + LedgeRayCorrectY),
-                    new Vector2(transform.localScale.x, 0),
+                    new Vector2(transform.localScale.x * 10, 0),
                     WallCheckRayDistance,
                     Wall
                 );
@@ -177,10 +178,18 @@ public class PlayerMovement : MonoBehaviour
             OnLedge = false;
         }
 
-        if (OnLedge)
+        if (OnLedge && Input.GetKey(KeyCode.W))
         {
-            OffsetCulculateAndCurrect();
+            anim.Play("Ledge");
+            BlockMoveXYforLedge = true;
         }
+    }
+
+    void Ledge()
+    {
+        anim.Play("Idle");
+        transform.position = nextPos.transform.position;
+        BlockMoveXYforLedge = false;
     }
 
     public float OffsetY;
@@ -189,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
     {
         OffsetY = Physics2D.Raycast
             (
-                new Vector2(WallCheckUp.position.x + WallCheckRayDistance * transform.localScale.x, WallCheckUp.position.y + LedgeRayCorrectY),
+                new Vector2(WallCheckUp.position.x + WallCheckRayDistance * transform.localScale.x * 10, WallCheckUp.position.y + LedgeRayCorrectY),
                 Vector2.down,
                 LedgeRayCorrectY,
                 Ground
@@ -201,23 +210,23 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.localScale.x * 2f);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.localScale.x * 10 * 2f);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(WallCheckUp.position, new Vector2(WallCheckUp.position.x + WallCheckRayDistance * transform.localScale.x, WallCheckUp.position.y));
+        Gizmos.DrawLine(WallCheckUp.position, new Vector2(WallCheckUp.position.x + WallCheckRayDistance * transform.localScale.x * 10, WallCheckUp.position.y));
 
         Gizmos.color = Color.black;
         Gizmos.DrawLine
             (
                 new Vector2(WallCheckUp.position.x, WallCheckUp.position.y + LedgeRayCorrectY), 
-                new Vector2(WallCheckUp.position.x + WallCheckRayDistance * transform.localScale.x, WallCheckUp.position.y + LedgeRayCorrectY)
+                new Vector2(WallCheckUp.position.x + WallCheckRayDistance * transform.localScale.x * 10, WallCheckUp.position.y + LedgeRayCorrectY)
             );
 
         Gizmos.color = Color.green;
         Gizmos.DrawLine
             (
-                new Vector2(WallCheckUp.position.x + WallCheckRayDistance * transform.localScale.x, WallCheckUp.position.y + LedgeRayCorrectY),
-                new Vector2(WallCheckUp.position.x + WallCheckRayDistance * transform.localScale.x, WallCheckUp.position.y)
+                new Vector2(WallCheckUp.position.x + WallCheckRayDistance * transform.localScale.x * 10, WallCheckUp.position.y + LedgeRayCorrectY),
+                new Vector2(WallCheckUp.position.x + WallCheckRayDistance * transform.localScale.x * 10, WallCheckUp.position.y)
             );
     }
 }

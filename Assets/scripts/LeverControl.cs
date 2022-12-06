@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class LeverControl : MonoBehaviour
 {
     public bool isOn = false;
-    bool collision = false;
-    public Image button;
-    public GameObject door;
+    public bool collision = false;
+    //public Image button;
+    public GameObject item;
 
     private void Start()
     {
@@ -17,16 +17,12 @@ public class LeverControl : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.E) && collision)
+        if (Input.GetKeyDown(KeyCode.E) && collision)
         {
-            if (!isOn)
-            {
-                isOn = true;
-                //transform.GetComponent<Animator>().SetBool("isOpen", true);
-                Destroy(door);
-            }
+            item.SetActive(!isOn);
+            isOn = !isOn;
         }
-        button.gameObject.SetActive(collision);
+        //button.gameObject.SetActive(collision);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

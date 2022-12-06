@@ -72,8 +72,8 @@ public class DragSomething : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.localScale.x * distance);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(dragPoint.transform.position, dragPoint.transform.position + Vector3.right * transform.localScale.x * distance);
 
     }
 }

@@ -5,24 +5,31 @@ using UnityEngine.UI;
 
 public class LeverControl : MonoBehaviour
 {
-    public bool isOn = false;
+    public bool isOff = false;
     public bool collision = false;
     //public Image button;
-    public GameObject item;
-
-    private void Start()
-    {
-        //button.gameObject.SetActive(collision);
-    }
+    public GameObject[] light;
+    public GameObject[] item;
+    public GameObject[] itemDark;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && collision)
         {
-            item.SetActive(!isOn);
-            isOn = !isOn;
+            isOff = !isOff;
         }
+        SetItemActive(light, !isOff);
+        SetItemActive(item, !isOff);
+        SetItemActive(itemDark, isOff);
         //button.gameObject.SetActive(collision);
+    }
+
+    void SetItemActive(GameObject[] items, bool state)
+    {
+        foreach (GameObject item in items)
+        {
+            item.SetActive(state);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

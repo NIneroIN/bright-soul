@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Physics2D.queriesStartInColliders = false;
                 hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, 2f);
-                if (hit.collider != null && hit.collider.tag == "Item" && hit.collider.GetComponent<Item>().isLight.Count > 0)
+                if (hit.collider != null && hit.collider.tag == "Item" && hit.collider.GetComponent<Item1>().isLight.Count > 0)
                 {
                     ItemInHand = true;
                     speedPlayer = speedWithItem;

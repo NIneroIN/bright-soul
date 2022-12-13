@@ -10,10 +10,15 @@ namespace Moving
 
         [Header("Climbing the stairs")]
         [SerializeField] LayerMask _steps;
+        [SerializeField] bool onStep;
         [SerializeField] bool onStepsUp;
         [SerializeField] bool onStepsDown;
         [SerializeField] float StepsOffsetX;
         [SerializeField] float StepsOffsetY;
+
+        [Header("Climbing the ladder")]
+        [SerializeField] LayerMask _ladder;
+        [SerializeField] bool onLadder;
 
         private void Start()
         {
@@ -21,6 +26,49 @@ namespace Moving
         }
 
         private void Update()
+        {
+            ClimbStairs();
+            ClimbLadder();
+            DisabledPlatform();
+        }
+
+        private static void DisabledPlatform()
+        {
+            if (Input.GetKey(KeyCode.S))
+            {
+                Physics2D.IgnoreLayerCollision(8, 9, true);
+            }
+            else
+            {
+                Physics2D.IgnoreLayerCollision(8, 9, false);
+            }
+        }
+
+        void IgnorelayerOff()
+        {
+            Physics2D.IgnoreLayerCollision(7, 8, false);
+        }
+
+        void ClimbLadder()
+        {
+            onLadder = Physics2D.OverlapCircle
+            (
+                new Vector2(transform.position.x, transform.position.y),
+                10f,
+                _ladder
+            );
+
+            if (onLadder) 
+            {
+                _rb.gravityScale = 0;
+            }
+            else if (!onStep)
+            {
+                _rb.gravityScale = 10;
+            }
+        }
+
+        void ClimbStairs()
         {
             onStepsUp = Physics2D.Raycast
             (
@@ -38,13 +86,16 @@ namespace Moving
                 _steps
             );
 
-            if (!onStepsDown & !onStepsUp)
+            if ((onStepsDown & Input.GetKey(KeyCode.S)) || (onStepsUp & Input.GetKey(KeyCode.W)) || onStep)
             {
-                _rb.gravityScale = 10;
+                Physics2D.IgnoreLayerCollision(8, 7, false);
+                _rb.gravityScale = 0;
+                onStep = true;
             }
             else
             {
-                _rb.gravityScale = 0;
+                Physics2D.IgnoreLayerCollision(8, 7, true);
+                _rb.gravityScale = 10;
             }
         }
 
@@ -55,19 +106,24 @@ namespace Moving
 
         private void OnDirectionButtonPressed(Vector2 dir)
         {
-            if (onStepsUp)
+            if (onStepsUp & onStep)
             {
-                dir = new Vector2(dir.x, 1);
+                dir = new Vector2(dir.x, dir.x) * transform.localScale.x;
                 MovePlayer(dir, _speed);
-                
             }
-            else if (onStepsDown)
+            else if (onStepsDown & onStep)
             {
-                dir = new Vector2(dir.x, -1);
+                dir = new Vector2(-dir.x, -dir.x) * transform.localScale.x;
+                MovePlayer(dir, _speed);
+            }
+            else if (onLadder)
+            {
                 MovePlayer(dir, _speed);
             }
             else
             {
+                onStep = false;
+                dir = new Vector2(dir.x, 0);
                 MovePlayer(dir, _speed);
             }
         }

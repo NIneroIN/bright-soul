@@ -12,13 +12,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ladder
   - Water
   - UI
   - Ground
   - Step
   - Player
-  - 
+  - Platform
   - 
   - 
   - 

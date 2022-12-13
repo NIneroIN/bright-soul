@@ -27,7 +27,7 @@ partial class InputHandler : MonoBehaviour
         {
             if (Input.GetKey(button))
             {
-                Vector2 dir = new Vector2(Input.GetAxis("Horizontal"), 0);
+                Vector2 dir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
                 DirectionButtonPressed?.Invoke(dir);
             }
         }

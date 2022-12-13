@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a64e5b0e436d4bed9780211ae245f7b, type: 3}
   m_Name: game_character_walk_Data
   m_EditorClassIdentifier: 
-  dataName: walk
+  dataName: game_character_walk
   dragonBonesJSON: {fileID: 4900000, guid: 5caa0aa2ca056b846a8ccad4289dff2d, type: 3}
   textureAtlas:
   - textureAtlasJSON: {fileID: 4900000, guid: 58ba17f17cddaa34a98ae0567e30fa1e, type: 3}
     texture: {fileID: 2800000, guid: 916d21aa8a072d94daa645311a0dafa9, type: 3}
     material: {fileID: 2100000, guid: c2987a12e71da9a4c8d5f0154767d1eb, type: 2}
-    uiMaterial: {fileID: 2100000, guid: eb9f7561cf2daf642b7ed584102a9f0a, type: 2}
+    uiMaterial: {fileID: 0}

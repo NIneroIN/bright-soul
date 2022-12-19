@@ -3331,9 +3331,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29593a0ed40dbc94a8b95fabc3e26658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 0
-  button: {fileID: 343229065}
-  door: {fileID: 1870507818}
+  isOff: 0
+  collision: 0
+  light: []
+  item: []
+  itemDark: []
 --- !u!61 &943783586
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4541,9 +4543,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29593a0ed40dbc94a8b95fabc3e26658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 0
-  button: {fileID: 1820996481}
-  door: {fileID: 1696168131}
+  isOff: 0
+  collision: 0
+  light: []
+  item: []
+  itemDark: []
 --- !u!1 &1482582107
 GameObject:
   m_ObjectHideFlags: 0

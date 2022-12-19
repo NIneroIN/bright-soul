@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JumpForSmallBox : MonoBehaviour
 {
@@ -9,15 +10,16 @@ public class JumpForSmallBox : MonoBehaviour
     public Transform GroundCheck;
     public float checkRadius = 0.4f;
     public LayerMask Ground;
+    
 
     public bool isBox;
     public Transform BoxCheck;
     public LayerMask Box;
+    public bool collision = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -38,11 +40,14 @@ public class JumpForSmallBox : MonoBehaviour
 
     void CheckingGround()
     {
+
         onGround = Physics2D.OverlapCircle(GroundCheck.position, checkRadius, Ground);
     }
 
     void CheckingBox()
     {
-        isBox = Physics2D.Raycast(BoxCheck.position, new Vector2(0, -1) * 20f, checkRadius, Box);
+        
+            isBox = Boxesss.collision;
     }
+
 }

@@ -9,7 +9,8 @@ public class MoveSomething : MonoBehaviour
     RaycastHit2D hit;
     public Transform holdPoint;
     public float throwObject = 5;
-    // Start is called before the first frame update
+
+    
     void Start()
     {
 
@@ -18,6 +19,7 @@ public class MoveSomething : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (!hold)
@@ -67,12 +69,12 @@ public class MoveSomething : MonoBehaviour
             if (holdPoint.position.x > transform.position.x && hold == true)
             {
                 hit.collider.enabled = false;
-                hit.collider.gameObject.transform.localScale = new Vector2(transform.localScale.x * 0.357f, transform.localScale.y * 0.1888f);
+                hit.collider.gameObject.transform.localScale = new Vector2(transform.localScale.x * 20f, transform.localScale.y * 20f);
             }
             else if (holdPoint.position.x < transform.position.x && hold == true)
             {
                 hit.collider.enabled = false;
-                hit.collider.gameObject.transform.localScale = new Vector2(transform.localScale.x * 0.357f, transform.localScale.y * 0.1888f);
+                hit.collider.gameObject.transform.localScale = new Vector2(transform.localScale.x * 20f, transform.localScale.y * 20f);
             }
         }
     }
@@ -83,4 +85,5 @@ public class MoveSomething : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.localScale.x * distance);
 
     }
+    
 }

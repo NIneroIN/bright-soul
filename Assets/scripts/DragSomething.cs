@@ -18,6 +18,7 @@ public class DragSomething : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (!drag)
@@ -47,10 +48,12 @@ public class DragSomething : MonoBehaviour
                 {
                     if (dragPoint.position.x > transform.position.x)
                     {
+                        hit.collider.enabled = true;
                         hit.collider.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x, 1) * throwObject;
                     }
                     else
                     {
+                        hit.collider.enabled = true;
                         hit.collider.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x * -1, 1) * throwObject;
                     }
 
@@ -64,8 +67,15 @@ public class DragSomething : MonoBehaviour
 
             if (dragPoint.position.x > transform.position.x && drag == true)
             {
-                hit.collider.gameObject.transform.localScale = new Vector2(transform.localScale.x * 0.6090113f, transform.localScale.y * 0.3310503f);
+                hit.collider.enabled = false;
+                hit.collider.gameObject.transform.localScale = new Vector2(transform.localScale.x * 40f, transform.localScale.y * 40f);
             }
+            else if (dragPoint.position.x < transform.position.x && drag == true)
+            {
+                hit.collider.enabled = false;
+                hit.collider.gameObject.transform.localScale = new Vector2(transform.localScale.x * 40f, transform.localScale.y * 40f);
+            }
+            
 
         }
     }
@@ -73,7 +83,7 @@ public class DragSomething : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(dragPoint.transform.position, dragPoint.transform.position + Vector3.right * transform.localScale.x * distance);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.localScale.x * distance);
 
     }
 }

@@ -47,4 +47,6 @@ public class LeverControl : MonoBehaviour
             this.collision = false;
         }
     }
+
+
 }

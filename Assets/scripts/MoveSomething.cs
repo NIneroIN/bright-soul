@@ -10,11 +10,6 @@ public class MoveSomething : MonoBehaviour
     public Transform holdPoint;
     public float throwObject = 5;
 
-    
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()

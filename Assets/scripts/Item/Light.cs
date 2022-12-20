@@ -18,7 +18,7 @@ public class Light : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Item"))
+        if (collision.CompareTag("Item") || collision.CompareTag("Takeable"))
         {
             collision.GetComponent<Item>().ChangeLight(false);
             Debug.Log("OnTriggerExit2D");
@@ -27,7 +27,7 @@ public class Light : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Item"))
+        if (collision.CompareTag("Item") || collision.CompareTag("Takeable"))
         {
             collision.GetComponent<Item>().ChangeLight(true);
             Debug.Log("OnTriggerStay2D");

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     [SerializeField] private bool isLight;
+    [SerializeField] private bool isDark;
     [SerializeField] private Collider2D _collider2D;
 
     // Update is called once per frame
@@ -19,11 +20,18 @@ public class Item : MonoBehaviour
             gameObject.layer = 16;
         }
 
-        transform.GetChild(0).gameObject.SetActive(isLight);
+        if (transform.childCount != 0)
+        {
+            transform.GetChild(0).gameObject.SetActive(isLight);
+        }
     }
 
     public void ChangeLight(bool state)
     {
         isLight = state;
+        if (isDark)
+        {
+            isLight = !isLight;
+        }
     }
 }

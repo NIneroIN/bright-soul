@@ -7,7 +7,6 @@ public class LeverControl : MonoBehaviour
 {
     public bool isOff = false;
     public bool collision = false;
-    //public Image button;
     public GameObject[] light;
     public GameObject[] item;
     public GameObject[] itemDark;
@@ -18,10 +17,10 @@ public class LeverControl : MonoBehaviour
         {
             isOff = !isOff;
         }
+
         SetItemActive(light, !isOff);
         SetItemActive(item, !isOff);
         SetItemActive(itemDark, isOff);
-        //button.gameObject.SetActive(collision);
     }
 
     void SetItemActive(GameObject[] items, bool state)
@@ -47,6 +46,4 @@ public class LeverControl : MonoBehaviour
             this.collision = false;
         }
     }
-
-
 }

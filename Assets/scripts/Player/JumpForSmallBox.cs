@@ -8,19 +8,13 @@ public class JumpForSmallBox : MonoBehaviour
 {
     public bool onGround;
     public Transform GroundCheck;
-    public float checkRadius = 0.4f;
+    public float checkRadius = 20f;
     public LayerMask Ground;
     
 
     public bool isBox;
     public Transform BoxCheck;
     public LayerMask Box;
-    public bool collision = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()
@@ -40,14 +34,12 @@ public class JumpForSmallBox : MonoBehaviour
 
     void CheckingGround()
     {
-
         onGround = Physics2D.OverlapCircle(GroundCheck.position, checkRadius, Ground);
     }
 
     void CheckingBox()
     {
-        
-            isBox = Boxesss.collision;
+        isBox = Physics2D.Raycast(BoxCheck.position, new Vector2(0, -1), checkRadius, Box);
     }
 
 }

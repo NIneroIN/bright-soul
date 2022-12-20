@@ -9,6 +9,8 @@ TagManager:
   - Light
   - Item
   - Spikes
+  - Draggable
+  - Takeable
   layers:
   - Default
   - TransparentFX
@@ -29,7 +31,7 @@ TagManager:
   - Box
   - DarkBox
   - 
-  - 
+  - Thing
   - 
   - 
   - 

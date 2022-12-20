@@ -32,6 +32,11 @@ namespace Moving
             DisabledPlatform();
         }
 
+        private void FixedUpdate()
+        {
+            OnDirectionButtonPressed();
+        }
+
         private static void DisabledPlatform()
         {
             if (Input.GetKey(KeyCode.S))
@@ -42,11 +47,6 @@ namespace Moving
             {
                 Physics2D.IgnoreLayerCollision(8, 9, false);
             }
-        }
-
-        void IgnorelayerOff()
-        {
-            Physics2D.IgnoreLayerCollision(7, 8, false);
         }
 
         void ClimbLadder()
@@ -99,21 +99,18 @@ namespace Moving
             }
         }
 
-        private void OnEnable()
+        private void OnDirectionButtonPressed()
         {
-            InputHandler.DirectionButtonPressed += OnDirectionButtonPressed;
-        }
+            Vector2 dir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        private void OnDirectionButtonPressed(Vector2 dir)
-        {
             if (onStepsUp & onStep)
             {
-                dir = new Vector2(dir.x, dir.x) * transform.localScale.x;
+                dir = new Vector2(dir.x, dir.x * transform.localScale.x);
                 MovePlayer(dir, _speed);
             }
             else if (onStepsDown & onStep)
             {
-                dir = new Vector2(-dir.x, -dir.x) * transform.localScale.x;
+                dir = new Vector2(dir.x, -dir.x * transform.localScale.x);
                 MovePlayer(dir, _speed);
             }
             else if (onLadder)
@@ -147,11 +144,6 @@ namespace Moving
             transform.localScale = scale;
         }
 
-        private void OnDisable()
-        {
-            InputHandler.DirectionButtonPressed -= OnDirectionButtonPressed;
-        }
-
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
@@ -164,6 +156,12 @@ namespace Moving
                 (
                     new Vector2(transform.position.x - StepsOffsetX * transform.localScale.x, transform.position.y + StepsOffsetY),
                     new Vector2(transform.position.x - (StepsOffsetX + 10f) * transform.localScale.x, transform.position.y + StepsOffsetY - 10f)
+                );
+
+            Gizmos.DrawLine
+                (
+                    new Vector2(transform.position.x, transform.position.y),
+                    new Vector2(transform.position.x + 200f * transform.localScale.x, transform.position.y + 200f)
                 );
         }
     }

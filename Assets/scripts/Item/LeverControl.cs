@@ -10,14 +10,21 @@ public class LeverControl : MonoBehaviour
     public GameObject[] light;
     public GameObject[] item;
     public GameObject[] itemDark;
+    public GameObject[] itemDelete;
+    public Image but;
 
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && collision)
         {
             isOff = !isOff;
+            foreach (GameObject item in itemDelete)
+            {
+                Destroy(item);
+            }
         }
-
+        but.gameObject.SetActive(collision);
         SetItemActive(light, !isOff);
         SetItemActive(item, !isOff);
         SetItemActive(itemDark, isOff);
@@ -36,6 +43,7 @@ public class LeverControl : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             this.collision = true;
+            but.enabled = true;
         }
     }
 
@@ -44,6 +52,7 @@ public class LeverControl : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             this.collision = false;
+            but.enabled = false;
         }
     }
 }

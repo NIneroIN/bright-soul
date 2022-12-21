@@ -11,6 +11,10 @@ TagManager:
   - Spikes
   - Draggable
   - Takeable
+  - UI
+  - Lever
+  - ladder
+  - Trash
   layers:
   - Default
   - TransparentFX
@@ -32,7 +36,7 @@ TagManager:
   - DarkBox
   - 
   - Thing
-  - 
+  - Trash
   - 
   - 
   - 

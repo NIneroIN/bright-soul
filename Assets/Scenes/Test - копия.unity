@@ -1138,6 +1138,7 @@ MonoBehaviour:
   light: []
   item: []
   itemDark: []
+  itemDelete: []
 --- !u!212 &176047480
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1325,7 +1326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &204892275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1746,6 +1747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLight: 1
+  isDark: 0
   _collider2D: {fileID: 0}
 --- !u!212 &273501892
 SpriteRenderer:
@@ -2220,6 +2222,7 @@ MonoBehaviour:
   light: []
   item: []
   itemDark: []
+  itemDelete: []
 --- !u!212 &320126897
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3151,6 +3154,7 @@ MonoBehaviour:
   light: []
   item: []
   itemDark: []
+  itemDelete: []
 --- !u!212 &449987892
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3818,6 +3822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLight: 1
+  isDark: 0
   _collider2D: {fileID: 0}
 --- !u!50 &522763577
 Rigidbody2D:
@@ -7053,6 +7058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLight: 1
+  isDark: 0
   _collider2D: {fileID: 0}
 --- !u!212 &1234383058
 SpriteRenderer:
@@ -8693,6 +8699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLight: 1
+  isDark: 0
   _collider2D: {fileID: 0}
 --- !u!212 &1522423644
 SpriteRenderer:
@@ -9118,6 +9125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLight: 1
+  isDark: 0
   _collider2D: {fileID: 0}
 --- !u!212 &1558870799
 SpriteRenderer:
@@ -11783,6 +11791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLight: 1
+  isDark: 0
   _collider2D: {fileID: 0}
 --- !u!212 &1966262490
 SpriteRenderer:
@@ -12434,6 +12443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLight: 1
+  isDark: 0
   _collider2D: {fileID: 0}
 --- !u!212 &2043641429
 SpriteRenderer:
@@ -12612,15 +12622,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f1394ff6e7c104d97c93602215a360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 30
-  jumpControl: 0
-  jumpIteration: 0
-  jumpForSeconds: 10
-  Wall:
-    serializedVersion: 2
-    m_Bits: 64
-  isGround: 0
-  rayDistance: 0.6
 --- !u!50 &2057835397
 Rigidbody2D:
   serializedVersion: 4
@@ -12665,7 +12666,6 @@ MonoBehaviour:
   Box:
     serializedVersion: 2
     m_Bits: 98304
-  collision: 0
 --- !u!4 &2071626423 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6857547458933694149, guid: 76ae625203b5360468f7579fc857b2da, type: 3}
@@ -12973,6 +12973,7 @@ MonoBehaviour:
   - {fileID: 1549295887}
   itemDark:
   - {fileID: 691744202}
+  itemDelete: []
 --- !u!212 &2142687242
 SpriteRenderer:
   m_ObjectHideFlags: 0

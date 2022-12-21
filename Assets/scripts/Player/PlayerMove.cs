@@ -6,7 +6,7 @@ namespace Moving
     {
         [SerializeField] float _speed;
         [SerializeField] bool right = true;
-        private Rigidbody2D _rb;
+        public static Rigidbody2D _rb;
 
         [Header("Climbing the stairs")]
         [SerializeField] LayerMask _steps;
